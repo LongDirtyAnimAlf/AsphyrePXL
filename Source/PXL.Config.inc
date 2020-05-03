@@ -58,7 +58,9 @@
   {$ENDIF}
 
   {$IFDEF CPU64}
-    {$DEFINE CPUX64}
+    {$IFDEF CPUX86_64}
+      {$DEFINE CPUX64}
+    {$ENDIF}
     {$DEFINE PUREPASCAL}
   {$ENDIF}
 

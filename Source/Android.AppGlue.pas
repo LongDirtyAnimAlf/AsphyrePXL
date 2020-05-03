@@ -247,6 +247,7 @@ procedure android_app_post_exec_cmd(android_app: Pandroid_app; cmd: ShortInt); c
 
 {
   Dummy function you can call to ensure glue code isn't stripped.
+
 }
 procedure app_dummy;
 
@@ -258,10 +259,14 @@ var
 
 procedure ANativeActivity_onCreate(activity: PANativeActivity; savedState: Pointer; savedStateSize: size_t); cdecl;
 
+{$IFDEF APPGLUE_DEBUG}
+procedure LOGV(const Text: AnsiString);
+{$ENDIF}
+
 implementation
 
 uses
-  SysUtils, Android.PThread, Android.Log;
+  SysUtils, Android.PThread, Android.Log, Android.KeyCodes;
 
 const
   LOG_TAG = 'PXL';
@@ -307,21 +312,21 @@ begin
   LOGV('AppGlue: free_saved_state');
 {$ENDIF}
 
-  pthread_mutex_lock(@android_app.mutex);
-  if android_app.savedState <> nil then
+  pthread_mutex_lock(@android_app^.mutex);
+  if Assigned(android_app^.savedState) then
   begin
-    libc_free(android_app.savedState);
-    android_app.savedState := nil;
-    android_app.savedStateSize := 0;
+    libc_free(android_app^.savedState);
+    android_app^.savedState := nil;
+    android_app^.savedStateSize := 0;
   end;
-  pthread_mutex_unlock(@android_app.mutex);
+  pthread_mutex_unlock(@android_app^.mutex);
 end;
 
 function android_app_read_cmd(android_app: Pandroid_app): ShortInt; cdecl;
 var
   cmd: ShortInt;
 begin
-  if libc_read(android_app.msgread, @cmd, SizeOf(cmd)) = SizeOf(cmd) then
+  if libc_read(android_app^.msgread, @cmd, SizeOf(cmd)) = SizeOf(cmd) then
   begin
     case cmd of
       APP_CMD_SAVE_STATE:
@@ -341,37 +346,37 @@ begin
   case cmd of
     APP_CMD_INPUT_CHANGED:
     begin
-      pthread_mutex_lock(@android_app.mutex);
-      if android_app.inputQueue <> nil then
-        AInputQueue_detachLooper(android_app.inputQueue);
-      android_app.inputQueue := android_app.pendingInputQueue;
-      if android_app.inputQueue <> nil then
-        AInputQueue_attachLooper(android_app.inputQueue, android_app.looper, LOOPER_ID_INPUT,
-          nil, @android_app.inputPollSource);
-      pthread_cond_broadcast(@android_app.cond);
-      pthread_mutex_unlock(@android_app.mutex);
+      pthread_mutex_lock(@android_app^.mutex);
+      if Assigned(android_app^.inputQueue) then
+        AInputQueue_detachLooper(android_app^.inputQueue);
+      android_app^.inputQueue := android_app^.pendingInputQueue;
+      if Assigned(android_app^.inputQueue) then
+        AInputQueue_attachLooper(android_app^.inputQueue, android_app^.looper, LOOPER_ID_INPUT,
+          nil, @android_app^.inputPollSource);
+      pthread_cond_broadcast(@android_app^.cond);
+      pthread_mutex_unlock(@android_app^.mutex);
     end;
 
     APP_CMD_INIT_WINDOW:
     begin
-      pthread_mutex_lock(@android_app.mutex);
-      android_app.window := android_app.pendingWindow;
-      pthread_cond_broadcast(@android_app.cond);
-      pthread_mutex_unlock(@android_app.mutex);
+      pthread_mutex_lock(@android_app^.mutex);
+      android_app.window := android_app^.pendingWindow;
+      pthread_cond_broadcast(@android_app^.cond);
+      pthread_mutex_unlock(@android_app^.mutex);
     end;
 
     APP_CMD_TERM_WINDOW:
-      pthread_cond_broadcast(@android_app.cond);
+      pthread_cond_broadcast(@android_app^.cond);
 
     APP_CMD_RESUME,
     APP_CMD_START,
     APP_CMD_PAUSE,
     APP_CMD_STOP:
     begin
-      pthread_mutex_lock(@android_app.mutex);
+      pthread_mutex_lock(@android_app^.mutex);
       android_app.activityState := cmd;
-      pthread_cond_broadcast(@android_app.cond);
-      pthread_mutex_unlock(@android_app.mutex);
+      pthread_cond_broadcast(@android_app^.cond);
+      pthread_mutex_unlock(@android_app^.mutex);
     end;
 
     APP_CMD_CONFIG_CHANGED:
@@ -387,18 +392,18 @@ begin
   case cmd of
     APP_CMD_TERM_WINDOW:
     begin
-      pthread_mutex_lock(@android_app.mutex);
-      android_app.window := nil;
-      pthread_cond_broadcast(@android_app.cond);
-      pthread_mutex_unlock(@android_app.mutex);
+      pthread_mutex_lock(@android_app^.mutex);
+      android_app^.window := nil;
+      pthread_cond_broadcast(@android_app^.cond);
+      pthread_mutex_unlock(@android_app^.mutex);
     end;
 
     APP_CMD_SAVE_STATE:
     begin
-      pthread_mutex_lock(@android_app.mutex);
-      android_app.stateSaved := 1;
-      pthread_cond_broadcast(@android_app.cond);
-      pthread_mutex_unlock(@android_app.mutex);
+      pthread_mutex_lock(@android_app^.mutex);
+      android_app^.stateSaved := 1;
+      pthread_cond_broadcast(@android_app^.cond);
+      pthread_mutex_unlock(@android_app^.mutex);
     end;
 
     APP_CMD_RESUME:
@@ -417,13 +422,13 @@ begin
 {$ENDIF}
 
   free_saved_state(android_app);
-  pthread_mutex_lock(@android_app.mutex);
-  if android_app.inputQueue <> nil then
-    AInputQueue_detachLooper(android_app.inputQueue);
-  AConfiguration_delete(android_app.config);
-  android_app.destroyed := 1;
-  pthread_cond_broadcast(@android_app.cond);
-  pthread_mutex_unlock(@android_app.mutex);
+  pthread_mutex_lock(@android_app^.mutex);
+  if Assigned(android_app^.inputQueue) then
+    AInputQueue_detachLooper(android_app^.inputQueue);
+  AConfiguration_delete(android_app^.config);
+  android_app^.destroyed := 1;
+  pthread_cond_broadcast(@android_app^.cond);
+  pthread_mutex_unlock(@android_app^.mutex);
   // Can't touch android_app object after this.
 end;
 
@@ -432,26 +437,44 @@ var
   event: PAInputEvent;
   processed: LongInt;
   handled: Int32;
+  skip_predispatch:boolean;
 begin
   event := nil;
   processed := 0;
 
-  while AInputQueue_getEvent(app.inputQueue, @event) >= 0 do
+  if AInputQueue_hasEvents(app^.inputQueue)=1 then
   begin
-    if AInputQueue_preDispatchEvent(app.inputQueue, event) <> 0 then
-      Continue;
 
-    handled := 0;
+    while AInputQueue_getEvent(app^.inputQueue, @event) >= 0 do
+    begin
 
-    if Assigned(app.onInputEvent) then
-      handled := app.onInputEvent(app, event);
+      //LOGV('New input event: '+ InttoStr(AInputEvent_getType(event)));
 
-    AInputQueue_finishEvent(app.inputQueue, event, handled);
-    processed := 1;
+      //if AInputQueue_preDispatchEvent(app^.inputQueue, event) <> 0 then
+      //      exit; //Continue;
+
+      skip_predispatch:=
+         (AInputEvent_getType(event)=AINPUT_EVENT_TYPE_KEY)
+         AND
+         (AKeyEvent_getKeyCode(event)=AKEYCODE_BACK);
+
+      // skip predispatch (all it does is send to the IME)
+      if (NOT skip_predispatch) AND (AInputQueue_preDispatchEvent(app^.inputQueue, event) <> 0) then
+        exit;
+
+      handled := 0;
+
+      if Assigned(app^.onInputEvent) then
+        handled := app^.onInputEvent(app, event);
+
+      AInputQueue_finishEvent(app^.inputQueue, event, handled);
+      processed := 1;
+    end;
+
+    if processed = 0 then
+      LOGE('Failure reading next input event');
+
   end;
-
-  if processed = 0 then
-    LOGE('Failure reading next input event');
 end;
 
 procedure process_cmd(app: Pandroid_app; Source: Pandroid_poll_source); cdecl;
@@ -460,8 +483,8 @@ var
 begin
   cmd := android_app_read_cmd(app);
   android_app_pre_exec_cmd(app, cmd);
-  if Assigned(app.onAppCmd) then
-    app.onAppCmd(app, cmd);
+  if Assigned(app^.onAppCmd) then
+    app^.onAppCmd(app, cmd);
   android_app_post_exec_cmd(app, cmd);
 end;
 
@@ -476,24 +499,24 @@ begin
 
   android_app := Pandroid_app(param);
 
-  android_app.config := AConfiguration_new;
-  AConfiguration_fromAssetManager(android_app.config, android_app.activity.assetManager);
+  android_app^.config := AConfiguration_new;
+  AConfiguration_fromAssetManager(android_app^.config, android_app^.activity.assetManager);
 
-  android_app.cmdPollSource.id := LOOPER_ID_MAIN;
-  android_app.cmdPollSource.app := android_app;
-  android_app.cmdPollSource.process := @process_cmd;
-  android_app.inputPollSource.id := LOOPER_ID_INPUT;
-  android_app.inputPollSource.app := android_app;
-  android_app.inputPollSource.process := @process_input;
+  android_app^.cmdPollSource.id := LOOPER_ID_MAIN;
+  android_app^.cmdPollSource.app := android_app;
+  android_app^.cmdPollSource.process := @process_cmd;
+  android_app^.inputPollSource.id := LOOPER_ID_INPUT;
+  android_app^.inputPollSource.app := android_app;
+  android_app^.inputPollSource.process := @process_input;
 
   looper := ALooper_prepare(ALOOPER_PREPARE_ALLOW_NON_CALLBACKS);
-  ALooper_addFd(looper, android_app.msgread, LOOPER_ID_MAIN, ALOOPER_EVENT_INPUT, nil, @android_app.cmdPollSource);
-  android_app.looper := looper;
+  ALooper_addFd(looper, android_app^.msgread, LOOPER_ID_MAIN, ALOOPER_EVENT_INPUT, nil, @android_app^.cmdPollSource);
+  android_app^.looper := looper;
 
-  pthread_mutex_lock(@android_app.mutex);
-  android_app.running := 1;
-  pthread_cond_broadcast(@android_app.cond);
-  pthread_mutex_unlock(@android_app.mutex);
+  pthread_mutex_lock(@android_app^.mutex);
+  android_app^.running := 1;
+  pthread_cond_broadcast(@android_app^.cond);
+  pthread_mutex_unlock(@android_app^.mutex);
 
   android_main(android_app);
 
@@ -510,6 +533,8 @@ var
   _android_app: Pandroid_app;
   msgpipe: array[0..1] of LongInt;
   attr: pthread_attr_t;
+  mORMotThread: pthread_t;
+
 begin
 {$IFDEF APPGLUE_DEBUG}
   LOGV('AppGlue: android_app_create');
@@ -518,16 +543,16 @@ begin
   _android_app := Pandroid_app(libc_malloc(SizeOf(android_app)));
 
   FillChar(_android_app^, SizeOf(android_app), 0);
-  _android_app.activity := activity;
+  _android_app^.activity := activity;
 
-  pthread_mutex_init(@_android_app.mutex, nil);
-  pthread_cond_init(@_android_app.cond, nil);
+  pthread_mutex_init(@_android_app^.mutex, nil);
+  pthread_cond_init(@_android_app^.cond, nil);
 
-  if savedState <> nil then
+  if Assigned(savedState) then
   begin
-    _android_app.savedState := libc_malloc(savedStateSize);
-    _android_app.savedStateSize := savedStateSize;
-    Move(savedState^, _android_app.savedState^, savedStateSize);
+    _android_app^.savedState := libc_malloc(savedStateSize);
+    _android_app^.savedStateSize := savedStateSize;
+    Move(savedState^, _android_app^.savedState^, savedStateSize);
   end;
 
   if pipe(@msgpipe[0]) <> 0 then
@@ -536,28 +561,28 @@ begin
     Exit(nil);
   end;
 
-  _android_app.msgread := msgpipe[0];
-  _android_app.msgwrite := msgpipe[1];
+  _android_app^.msgread := msgpipe[0];
+  _android_app^.msgwrite := msgpipe[1];
 
   pthread_attr_init(@attr);
   pthread_attr_setdetachstate(@attr, PTHREAD_CREATE_DETACHED);
 
-  pthread_create(@_android_app.thread, @attr, @android_app_entry, _android_app);
+  pthread_create(@_android_app^.thread, @attr, @android_app_entry, _android_app);
 
   // Wait for thread to start.
-  pthread_mutex_lock(@_android_app.mutex);
+  pthread_mutex_lock(@_android_app^.mutex);
 
-  while _android_app.running = 0 do
-    pthread_cond_wait(@_android_app.cond, @_android_app.mutex);
+  while (_android_app^.running = 0) do
+    pthread_cond_wait(@_android_app^.cond, @_android_app^.mutex);
 
-  pthread_mutex_unlock(@_android_app.mutex);
+  pthread_mutex_unlock(@_android_app^.mutex);
 
   Result := _android_app;
 end;
 
 procedure android_app_write_cmd(android_app: Pandroid_app; cmd: ShortInt); cdecl;
 begin
-  if libc_write(android_app.msgwrite, @cmd, SizeOf(cmd)) <> SizeOf(cmd) then
+  if libc_write(android_app^.msgwrite, @cmd, SizeOf(cmd)) <> SizeOf(cmd) then
     LOGE('Failure writing android_app cmd');
 end;
 
@@ -567,15 +592,15 @@ begin
   LOGV('AppGlue: android_app_set_input');
 {$ENDIF}
 
-  pthread_mutex_lock(@android_app.mutex);
+  pthread_mutex_lock(@android_app^.mutex);
 
-  android_app.pendingInputQueue := inputQueue;
+  android_app^.pendingInputQueue := inputQueue;
   android_app_write_cmd(android_app, APP_CMD_INPUT_CHANGED);
 
-  while android_app.inputQueue <> android_app.pendingInputQueue do
-    pthread_cond_wait(@android_app.cond, @android_app.mutex);
+  while (android_app^.inputQueue <> android_app^.pendingInputQueue) do
+    pthread_cond_wait(@android_app^.cond, @android_app^.mutex);
 
-  pthread_mutex_unlock(@android_app.mutex);
+  pthread_mutex_unlock(@android_app^.mutex);
 end;
 
 procedure android_app_set_window(android_app: Pandroid_app; window: PANativeWindow); cdecl;
@@ -584,20 +609,20 @@ begin
   LOGV('AppGlue: android_app_set_window');
 {$ENDIF}
 
-  pthread_mutex_lock(@android_app.mutex);
+  pthread_mutex_lock(@android_app^.mutex);
 
-  if android_app.pendingWindow <> nil then
+  if Assigned(android_app^.pendingWindow) then
     android_app_write_cmd(android_app, APP_CMD_TERM_WINDOW);
 
-  android_app.pendingWindow := window;
+  android_app^.pendingWindow := window;
 
-  if window <> nil then
+  if Assigned(window) then
     android_app_write_cmd(android_app, APP_CMD_INIT_WINDOW);
 
-  while android_app.window <> android_app.pendingWindow do
-    pthread_cond_wait(@android_app.cond, @android_app.mutex);
+  while (android_app^.window <> android_app^.pendingWindow) do
+    pthread_cond_wait(@android_app^.cond, @android_app^.mutex);
 
-  pthread_mutex_unlock(@android_app.mutex);
+  pthread_mutex_unlock(@android_app^.mutex);
 end;
 
 procedure android_app_set_activity_state(android_app: Pandroid_app; cmd: ShortInt); cdecl;
@@ -606,13 +631,13 @@ begin
   LOGV('AppGlue: android_app_set_activity_state');
 {$ENDIF}
 
-  pthread_mutex_lock(@android_app.mutex);
+  pthread_mutex_lock(@android_app^.mutex);
   android_app_write_cmd(android_app, cmd);
 
-  while android_app.activityState <> cmd do
-    pthread_cond_wait(@android_app.cond, @android_app.mutex);
+  while (android_app^.activityState <> cmd) do
+    pthread_cond_wait(@android_app^.cond, @android_app^.mutex);
 
-  pthread_mutex_unlock(@android_app.mutex);
+  pthread_mutex_unlock(@android_app^.mutex);
 end;
 
 procedure android_app_free(android_app: Pandroid_app); cdecl;
@@ -621,19 +646,19 @@ begin
   LOGV('AppGlue: android_app_free');
 {$ENDIF}
 
-  pthread_mutex_lock(@android_app.mutex);
+  pthread_mutex_lock(@android_app^.mutex);
   android_app_write_cmd(android_app, APP_CMD_DESTROY);
 
-  while android_app.destroyed = 0 do
-    pthread_cond_wait(@android_app.cond, @android_app.mutex);
+  while (android_app^.destroyed = 0) do
+    pthread_cond_wait(@android_app^.cond, @android_app^.mutex);
 
-  pthread_mutex_unlock(@android_app.mutex);
+  pthread_mutex_unlock(@android_app^.mutex);
 
-  libc_close(android_app.msgread);
-  libc_close(android_app.msgwrite);
+  libc_close(android_app^.msgread);
+  libc_close(android_app^.msgwrite);
 
-  pthread_cond_destroy(@android_app.cond);
-  pthread_mutex_destroy(@android_app.mutex);
+  pthread_cond_destroy(@android_app^.cond);
+  pthread_mutex_destroy(@android_app^.mutex);
 
   libc_free(android_app);
 end;
@@ -644,7 +669,7 @@ begin
   LOGV('AppGlue: onDestroy');
 {$ENDIF}
 
-  android_app_free(Pandroid_app(activity.instance));
+  android_app_free(Pandroid_app(activity^.instance));
 end;
 
 procedure onStart(activity: PANativeActivity); cdecl;
@@ -653,7 +678,7 @@ begin
   LOGV('AppGlue: onStart');
 {$ENDIF}
 
-  android_app_set_activity_state(Pandroid_app(activity.instance), APP_CMD_START);
+  android_app_set_activity_state(Pandroid_app(activity^.instance), APP_CMD_START);
 end;
 
 procedure onResume(activity: PANativeActivity); cdecl;
@@ -662,38 +687,49 @@ begin
   LOGV('AppGlue: onResume');
 {$ENDIF}
 
-  android_app_set_activity_state(Pandroid_app(activity.instance), APP_CMD_RESUME);
+  android_app_set_activity_state(Pandroid_app(activity^.instance), APP_CMD_RESUME);
 end;
 
 function onSaveInstanceState(activity: PANativeActivity; outLen: psize_t): Pointer; cdecl;
 var
-  android_app: Pandroid_app;
+  _android_app: Pandroid_app;
   savedState: Pointer;
 begin
 {$IFDEF APPGLUE_DEBUG}
   LOGV('AppGlue: onSaveInstanceState');
 {$ENDIF}
 
-  android_app := activity.instance;
+  _android_app := Pandroid_app(activity^.instance);
+
   savedState := nil;
 
-  pthread_mutex_lock(@android_app.mutex);
+  pthread_mutex_lock(@_android_app^.mutex);
 
-  android_app.stateSaved := 0;
-  android_app_write_cmd(android_app, APP_CMD_SAVE_STATE);
+  _android_app^.stateSaved := 0;
+  android_app_write_cmd(_android_app, APP_CMD_SAVE_STATE);
 
-  while android_app.stateSaved = 0 do
-    pthread_cond_wait(@android_app.cond, @android_app.mutex);
+  while (_android_app^.stateSaved = 0) do
+    pthread_cond_wait(@_android_app^.cond, @_android_app^.mutex);
 
-  if android_app.savedState <> nil then
+  if Assigned(_android_app^.savedState) then
   begin
-    savedState := android_app.savedState;
-    outLen^ := android_app.savedStateSize;
-    android_app.savedState := nil;
-    android_app.savedStateSize := 0;
+    savedState := _android_app^.savedState;
+    outLen^ := _android_app^.savedStateSize;
+    _android_app^.savedState := nil;
+    _android_app^.savedStateSize := 0;
   end;
 
-  pthread_mutex_unlock(@android_app.mutex);
+  {
+  if Assigned(_android_app^.savedState) then
+  begin
+    savedState := libc_malloc(_android_app^.savedStateSize);
+    Move(_android_app^.savedState^, savedState^, _android_app^.savedStateSize);
+    outLen^ := _android_app^.savedStateSize;
+    free_saved_state(_android_app);
+  end;
+  }
+
+  pthread_mutex_unlock(@_android_app^.mutex);
 
   Result := savedState;
 end;
@@ -704,7 +740,7 @@ begin
   LOGV('AppGlue: onPause');
 {$ENDIF}
 
-  android_app_set_activity_state(Pandroid_app(activity.instance), APP_CMD_PAUSE);
+  android_app_set_activity_state(Pandroid_app(activity^.instance), APP_CMD_PAUSE);
 end;
 
 procedure onStop(activity: PANativeActivity); cdecl;
@@ -713,31 +749,31 @@ begin
   LOGV('AppGlue: onStop');
 {$ENDIF}
 
-  android_app_set_activity_state(Pandroid_app(activity.instance), APP_CMD_STOP);
+  android_app_set_activity_state(Pandroid_app(activity^.instance), APP_CMD_STOP);
 end;
 
 procedure onConfigurationChanged(activity: PANativeActivity); cdecl;
 var
-  android_app: Pandroid_app;
+  _android_app: Pandroid_app;
 begin
 {$IFDEF APPGLUE_DEBUG}
   LOGV('AppGlue: onConfigurationChanged');
 {$ENDIF}
 
-  android_app := activity.instance;
-  android_app_write_cmd(android_app, APP_CMD_CONFIG_CHANGED);
+  _android_app := Pandroid_app(activity^.instance);
+  android_app_write_cmd(_android_app, APP_CMD_CONFIG_CHANGED);
 end;
 
 procedure onLowMemory(activity: PANativeActivity); cdecl;
 var
-  android_app: Pandroid_app;
+  _android_app: Pandroid_app;
 begin
 {$IFDEF APPGLUE_DEBUG}
   LOGV('AppGlue: onLowMemory');
 {$ENDIF}
 
-  android_app := activity.instance;
-  android_app_write_cmd(android_app, APP_CMD_LOW_MEMORY);
+  _android_app := Pandroid_app(activity^.instance);
+  android_app_write_cmd(_android_app, APP_CMD_LOW_MEMORY);
 end;
 
 procedure onWindowFocusChanged(activity: PANativeActivity; focused: Integer); cdecl;
@@ -746,10 +782,10 @@ begin
   LOGV('AppGlue: onWindowFocusChanged');
 {$ENDIF}
 
-  if focused <> 0 then
-    android_app_write_cmd(activity.instance, APP_CMD_GAINED_FOCUS)
+  if (focused <> 0) then
+    android_app_write_cmd(Pandroid_app(activity^.instance), APP_CMD_GAINED_FOCUS)
   else
-    android_app_write_cmd(activity.instance, APP_CMD_LOST_FOCUS);
+    android_app_write_cmd(Pandroid_app(activity^.instance), APP_CMD_LOST_FOCUS);
 end;
 
 procedure onNativeWindowCreated(activity: PANativeActivity; window: PANativeWindow); cdecl;
@@ -758,7 +794,7 @@ begin
   LOGV('AppGlue: onNativeWindowCreated');
 {$ENDIF}
 
-  android_app_set_window(activity.instance, window);
+  android_app_set_window(Pandroid_app(activity^.instance), window);
 end;
 
 procedure onNativeWindowDestroyed(activity: PANativeActivity; window: PANativeWindow); cdecl;
@@ -767,7 +803,7 @@ begin
   LOGV('AppGlue: onNativeWindowDestroyed');
 {$ENDIF}
 
-  android_app_set_window(activity.instance, nil);
+  android_app_set_window(Pandroid_app(activity^.instance), nil);
 end;
 
 procedure onInputQueueCreated(activity: PANativeActivity; queue: PAInputQueue); cdecl;
@@ -776,16 +812,16 @@ begin
   LOGV('AppGlue: onInputQueueCreated');
 {$ENDIF}
 
-  android_app_set_input(activity.instance, queue);
+  android_app_set_input(Pandroid_app(activity^.instance), queue);
 end;
 
-procedure onInputQueueDestroyed(activity: PANativeActivity; queue: PAInputQueue); cdecl;
+procedure onInputQueueDestroyed(activity: PANativeActivity; {%H-}queue: PAInputQueue); cdecl;
 begin
 {$IFDEF APPGLUE_DEBUG}
   LOGV('AppGlue: onInputQueueDestroyed');
 {$ENDIF}
 
-  android_app_set_input(activity.instance, nil);
+  android_app_set_input(Pandroid_app(activity^.instance), nil);
 end;
 
 procedure ANativeActivity_onCreate(activity: PANativeActivity; savedState: Pointer; savedStateSize: size_t); cdecl;
@@ -794,21 +830,21 @@ begin
   LOGV('AppGlue: ANativeActivity_onCreate');
 {$ENDIF}
 
-  activity.callbacks.onDestroy := @onDestroy;
-  activity.callbacks.onStart := @onStart;
-  activity.callbacks.onResume := @onResume;
-  activity.callbacks.onSaveInstanceState := @onSaveInstanceState;
-  activity.callbacks.onPause := @onPause;
-  activity.callbacks.onStop := @onStop;
-  activity.callbacks.onConfigurationChanged := @onConfigurationChanged;
-  activity.callbacks.onLowMemory := @onLowMemory;
-  activity.callbacks.onWindowFocusChanged := @onWindowFocusChanged;
-  activity.callbacks.onNativeWindowCreated := @onNativeWindowCreated;
-  activity.callbacks.onNativeWindowDestroyed := @onNativeWindowDestroyed;
-  activity.callbacks.onInputQueueCreated := @onInputQueueCreated;
-  activity.callbacks.onInputQueueDestroyed := @onInputQueueDestroyed;
+  activity^.callbacks^.onDestroy := @onDestroy;
+  activity^.callbacks^.onStart := @onStart;
+  activity^.callbacks^.onResume := @onResume;
+  activity^.callbacks^.onSaveInstanceState := @onSaveInstanceState;
+  activity^.callbacks^.onPause := @onPause;
+  activity^.callbacks^.onStop := @onStop;
+  activity^.callbacks^.onConfigurationChanged := @onConfigurationChanged;
+  activity^.callbacks^.onLowMemory := @onLowMemory;
+  activity^.callbacks^.onWindowFocusChanged := @onWindowFocusChanged;
+  activity^.callbacks^.onNativeWindowCreated := @onNativeWindowCreated;
+  activity^.callbacks^.onNativeWindowDestroyed := @onNativeWindowDestroyed;
+  activity^.callbacks^.onInputQueueCreated := @onInputQueueCreated;
+  activity^.callbacks^.onInputQueueDestroyed := @onInputQueueDestroyed;
 
-  activity.instance := android_app_create(activity, savedState, savedStateSize);
+  activity^.instance := android_app_create(activity, savedState, savedStateSize);
 end;
 
 {$ENDREGION}

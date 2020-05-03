@@ -23,7 +23,7 @@
 
             <meta-data
                 android:name="android.app.lib_name"
-                android:value="PXL_Basic" />
+                android:value="pxl_basic" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -7,8 +7,8 @@
         android:glEsVersion="0x00020000" />
     
     <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="19" />
+        android:minSdkVersion="18"
+        android:targetSdkVersion="28" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +23,7 @@
 
             <meta-data
                 android:name="android.app.lib_name"
-                android:value="PXL_Terrain" />
+                android:value="pxl_terrain" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

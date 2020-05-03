@@ -1,0 +1,899 @@
+{
+	"pagination": {
+		"per_page": 100,
+		"items": 1074,
+		"page": 1
+	},
+	"releases": [
+		{
+			"status": "",
+			"title": "Analogue Bubblebath",
+			"format": "",
+			"label": "",
+			"artist": "The Aphex Twin*",
+			"year": 1991,
+			"id": 870
+		},
+		{
+			"status": "",
+			"title": "Analog Bubblebath Vol 2",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 1991,
+			"id": 258478
+		},
+		{
+			"status": "",
+			"title": "Selected Ambient Works 85-92",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 1992,
+			"id": 565
+		},
+		{
+			"status": "",
+			"title": "Digeridoo",
+			"format": "",
+			"label": "",
+			"artist": "The Aphex Twin*",
+			"year": 1992,
+			"id": 604
+		},
+		{
+			"status": "",
+			"title": "Analogue Bubblebath Vol 3",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 1992,
+			"id": 919
+		},
+		{
+			"status": "",
+			"title": "Xylem Tube E.P.",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 1992,
+			"id": 984
+		},
+		{
+			"status": "",
+			"title": "Time To Find Me",
+			"format": "",
+			"label": "",
+			"artist": "Seefeel / Aphex Twin",
+			"year": 1993,
+			"id": 21190
+		},
+		{
+			"status": "",
+			"title": "On",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 1993,
+			"id": 715
+		},
+		{
+			"status": "",
+			"title": "Who Do You Think You Are / Your Head My Voice",
+			"format": "",
+			"label": "",
+			"artist": "Saint Etienne, The Aphex Twin*",
+			"year": 1993,
+			"id": 32746
+		},
+		{
+			"status": "Accepted",
+			"title": "Words & Music",
+			"format": "CD, Promo, Smplr",
+			"label": "Sire, Warp Records",
+			"artist": "Aphex Twin",
+			"year": 1994,
+			"id": 15608
+		},
+		{
+			"status": "",
+			"title": "Analogue Bubblebath 4",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 1994,
+			"id": 2429
+		},
+		{
+			"status": "",
+			"title": "Selected Ambient Works Volume II",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 1994,
+			"id": 481
+		},
+		{
+			"status": "Accepted",
+			"title": "In-Store Ambients",
+			"format": "CD, Comp, Promo, Smplr",
+			"label": "Warp Records, EastWest, Sire",
+			"artist": "Aphex Twin / The Black Dog",
+			"year": 1995,
+			"id": 182628
+		},
+		{
+			"status": "Accepted",
+			"title": "Raising The Titanic",
+			"format": "12\", Promo",
+			"label": "Point Music",
+			"artist": "Aphex Twin / Gavin Bryars",
+			"year": 1995,
+			"id": 202433
+		},
+		{
+			"status": "",
+			"title": "Ventolin E.P",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 1995,
+			"id": 20524
+		},
+		{
+			"status": "",
+			"title": "Hangable Auto Bulb EP",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 1995,
+			"id": 1725233
+		},
+		{
+			"status": "",
+			"title": "Donkey Rhubarb",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 1995,
+			"id": 791
+		},
+		{
+			"status": "",
+			"title": "Classics",
+			"format": "",
+			"label": "",
+			"artist": "The Aphex Twin*",
+			"year": 1995,
+			"id": 2482
+		},
+		{
+			"status": "",
+			"title": "Analogue Bubblebath 5",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 1995,
+			"id": 845617
+		},
+		{
+			"status": "",
+			"title": "Melodies From Mars",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 1995,
+			"id": 401184
+		},
+		{
+			"status": "",
+			"title": "Hangable Auto Bulb EP.2",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 1995,
+			"id": 4984
+		},
+		{
+			"status": "",
+			"title": "...I Care Because You Do",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 1995,
+			"id": 461
+		},
+		{
+			"status": "",
+			"title": "The Freebase Connection",
+			"format": "",
+			"label": "",
+			"artist": "The Mike Flowers Pops* Meets The Aphex Twin*",
+			"year": 1996,
+			"id": 118531
+		},
+		{
+			"status": "",
+			"title": "51/13 Aphex Singles Collection",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 1996,
+			"id": 2459
+		},
+		{
+			"status": "",
+			"title": "\"Girl/Boy\" E.P.",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 1996,
+			"id": 2503
+		},
+		{
+			"status": "",
+			"title": "Richard D. James Album",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 1996,
+			"id": 510
+		},
+		{
+			"status": "",
+			"title": "Come To Viddy",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 1997,
+			"id": 12991
+		},
+		{
+			"status": "",
+			"title": "Analogue Bubblebath Vol. 3.1",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 1997,
+			"id": 617160
+		},
+		{
+			"status": "",
+			"title": "Come To Daddy",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 1997,
+			"id": 27457
+		},
+		{
+			"status": "Accepted",
+			"title": "Inkey $",
+			"format": "CD, Promo",
+			"label": "Source, Warp Records",
+			"artist": "Aphex Twin",
+			"year": 1998,
+			"id": 798311
+		},
+		{
+			"status": "Accepted",
+			"title": "Sugar Daddy / Come To Daddy",
+			"format": "VHS, Promo, SECAM",
+			"label": "Source, Warp Records",
+			"artist": "Jimi Tenor / Aphex Twin",
+			"year": 1998,
+			"id": 839805
+		},
+		{
+			"status": "Accepted",
+			"title": "Special Sampler",
+			"format": "CD, Promo, Smplr",
+			"label": "WEA",
+			"artist": "Aphex Twin",
+			"year": 1999,
+			"id": 611166
+		},
+		{
+			"status": "Accepted",
+			"title": "Windowlicker",
+			"format": "Betacam SP, PAL",
+			"label": "Warp Records",
+			"artist": "Aphex Twin",
+			"year": 1999,
+			"id": 11675738
+		},
+		{
+			"status": "",
+			"title": "Windowlicker",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 1999,
+			"id": 532
+		},
+		{
+			"status": "Accepted",
+			"title": "Sound Aphex",
+			"format": "CD, Comp, Promo",
+			"label": "Chrysalis",
+			"artist": "Aphex Twin",
+			"year": 2001,
+			"id": 1692451
+		},
+		{
+			"status": "",
+			"title": "Drukqs 2 Track Promo",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2001,
+			"id": 27144
+		},
+		{
+			"status": "",
+			"title": "2 Remixes By AFX",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 2001,
+			"id": 2408
+		},
+		{
+			"status": "",
+			"title": "Drukqs",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2001,
+			"id": 281813
+		},
+		{
+			"status": "",
+			"title": "Drukqs",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2001,
+			"id": 497
+		},
+		{
+			"status": "",
+			"title": "Smojphace EP",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 2003,
+			"id": 9735
+		},
+		{
+			"status": "",
+			"title": "26 Mixes For Cash",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2003,
+			"id": 836
+		},
+		{
+			"status": "",
+			"title": "2 Mixes On A 12\" For Cash",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2003,
+			"id": 1212316
+		},
+		{
+			"status": "",
+			"title": "Analord 02",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 2005,
+			"id": 210499
+		},
+		{
+			"status": "",
+			"title": "Analord 03",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 2005,
+			"id": 210501
+		},
+		{
+			"status": "",
+			"title": "Analord 06",
+			"format": "",
+			"label": "",
+			"artist": "afx*",
+			"year": 2005,
+			"id": 210512
+		},
+		{
+			"status": "",
+			"title": "Analord 04",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 2005,
+			"id": 210510
+		},
+		{
+			"status": "",
+			"title": "Analord 05",
+			"format": "",
+			"label": "",
+			"artist": "afx*",
+			"year": 2005,
+			"id": 210511
+		},
+		{
+			"status": "",
+			"title": "Analord 07",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 2005,
+			"id": 210514
+		},
+		{
+			"status": "",
+			"title": "Analord 08",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 2005,
+			"id": 210515
+		},
+		{
+			"status": "",
+			"title": "Analord 09",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 2005,
+			"id": 210517
+		},
+		{
+			"status": "",
+			"title": "Analord 11",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 2005,
+			"id": 210519
+		},
+		{
+			"status": "",
+			"title": "Hangable Auto Bulb",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 2005,
+			"id": 5242
+		},
+		{
+			"status": "",
+			"title": "Analord 10",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2005,
+			"id": 48859
+		},
+		{
+			"status": "",
+			"title": "Untitled",
+			"format": "",
+			"label": "",
+			"artist": "LFO / AFX*",
+			"year": 2005,
+			"id": 1046822
+		},
+		{
+			"status": "",
+			"title": "Analord 01",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 2005,
+			"id": 210429
+		},
+		{
+			"status": "",
+			"title": "Chosen Lords",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 2006,
+			"id": 2556
+		},
+		{
+			"status": "Accepted",
+			"title": "Warp20 (Classics²) ...I Care Because You Do / Richard D. James Album",
+			"format": "CD, Album, RE + CD, Album + Comp",
+			"label": "Warp Records",
+			"artist": "Aphex Twin",
+			"year": 2009,
+			"id": 1907616
+		},
+		{
+			"status": "Accepted",
+			"title": "Modular Trax",
+			"format": "20xFile, MP3, 320 + File, MP3, 192",
+			"label": "Not On Label (Aphex Twin Self-released)",
+			"artist": "Aphex Twin",
+			"year": 2014,
+			"id": 6288378
+		},
+		{
+			"status": "Accepted",
+			"title": "FX Matrix",
+			"format": "2xFile, MP3, 320",
+			"label": "Not On Label (Aphex Twin Self-released)",
+			"artist": "Aphex Twin",
+			"year": 2014,
+			"id": 6308050
+		},
+		{
+			"status": "Accepted",
+			"title": "2 Tran 1",
+			"format": "2xFile, MP3, 320",
+			"label": "Not On Label (Aphex Twin Self-released)",
+			"artist": "Aphex Twin",
+			"year": 2014,
+			"id": 6308056
+		},
+		{
+			"status": "Accepted",
+			"title": "Partial Gen",
+			"format": "2xFile, MP3, 320",
+			"label": "Not On Label (Aphex Twin Self-released)",
+			"artist": "Aphex Twin",
+			"year": 2014,
+			"id": 6308060
+		},
+		{
+			"status": "Accepted",
+			"title": "Polish + Barbican Gigs/Rehearsals",
+			"format": "2xFile, MP3, 320",
+			"label": "Not On Label (Aphex Twin Self-released)",
+			"artist": "Aphex Twin",
+			"year": 2014,
+			"id": 6308062
+		},
+		{
+			"status": "Accepted",
+			"title": "Sys700",
+			"format": "2xFile, MP3, 320",
+			"label": "Not On Label (Aphex Twin Self-released)",
+			"artist": "Aphex Twin",
+			"year": 2014,
+			"id": 6308065
+		},
+		{
+			"status": "",
+			"title": "Syro",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2014,
+			"id": 734427
+		},
+		{
+			"status": "",
+			"title": "Minipops 67 [120.2][Source Field Mix]",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2014,
+			"id": 752210
+		},
+		{
+			"status": "Accepted",
+			"title": "Diskhat ALL Prepared1mixed [snr2mix]",
+			"format": "File, MP3, 320",
+			"label": "Not On Label (Aphex Twin Self-released)",
+			"artist": "Aphex Twin",
+			"year": 2015,
+			"id": 6558373
+		},
+		{
+			"status": "Accepted",
+			"title": "Rhubarb Orc. 19.53 Rev",
+			"format": "File, MP3, 320",
+			"label": "Not On Label (Aphex Twin Self-released)",
+			"artist": "Aphex Twin",
+			"year": 2015,
+			"id": 6598526
+		},
+		{
+			"status": "Accepted",
+			"title": "serge fenix Rendered 2",
+			"format": "File, MP3, 320",
+			"label": "Warp Records",
+			"artist": "AFX*",
+			"year": 2015,
+			"id": 7195275
+		},
+		{
+			"status": "",
+			"title": "umil 25-01",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 2015,
+			"id": 876141
+		},
+		{
+			"status": "",
+			"title": "MARCHROMT30a Edit 2b 96",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2015,
+			"id": 819951
+		},
+		{
+			"status": "",
+			"title": "Computer Controlled Acoustic Instruments Pt2 (EP)",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2015,
+			"id": 785340
+		},
+		{
+			"status": "",
+			"title": "Orphaned Deejay Selek 2006-08",
+			"format": "",
+			"label": "",
+			"artist": "A·F·X*",
+			"year": 2015,
+			"id": 873415
+		},
+		{
+			"status": "",
+			"title": "Cirklon3",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2016,
+			"id": 1611866
+		},
+		{
+			"status": "",
+			"title": "Houston, TX 12.17.16",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2016,
+			"id": 1523549
+		},
+		{
+			"status": "",
+			"title": "Cheetah EP",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2016,
+			"id": 1023840
+		},
+		{
+			"status": "",
+			"title": "CIRKLON3 [ Kolkhoznaya mix ]",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2016,
+			"id": 1018770
+		},
+		{
+			"status": "Accepted",
+			"title": "Hangable Auto Bulb - Extras",
+			"format": "File, MP3, 192",
+			"label": "Warp Records",
+			"artist": "AFX*",
+			"year": 2017,
+			"id": 10596373
+		},
+		{
+			"status": "",
+			"title": "London 03.06.17",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 2017,
+			"id": 1212065
+		},
+		{
+			"status": "",
+			"title": "Orphans",
+			"format": "",
+			"label": "",
+			"artist": "AFX* / Luke Vibert",
+			"year": 2017,
+			"id": 1213167
+		},
+		{
+			"status": "",
+			"title": "3 Gerald Remix / 24 TSIM 2",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2017,
+			"id": 1338216
+		},
+		{
+			"status": "",
+			"title": "Aphex Mt. Fuji 2017",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2017,
+			"id": 1465758
+		},
+		{
+			"status": "",
+			"title": "Korg Trax+Tunings for falling asleep",
+			"format": "",
+			"label": "",
+			"artist": "AFX*",
+			"year": 2017,
+			"id": 1213181
+		},
+		{
+			"status": "",
+			"title": "T69 Collapse",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2018,
+			"id": 1421958
+		},
+		{
+			"status": "",
+			"title": "Collapse EP",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2018,
+			"id": 1405505
+		},
+		{
+			"status": "",
+			"title": "Manchester 20.09.2019",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2019,
+			"id": 1659049
+		},
+		{
+			"status": "",
+			"title": "Peel Session 2 TX 10/04/95",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2019,
+			"id": 1636672
+		},
+		{
+			"status": "",
+			"title": "London 14.09.2019",
+			"format": "",
+			"label": "",
+			"artist": "Aphex Twin",
+			"year": 2019,
+			"id": 1658714
+		},
+		{
+			"status": "Accepted",
+			"title": "Analord 1 - 4",
+			"format": "2xCDr, Comp, Promo",
+			"label": "Rephlex",
+			"artist": "Aphex Twin",
+			"year": 0,
+			"id": 12877868
+		},
+		{
+			"status": "Accepted",
+			"title": "Cock/Ver 10",
+			"format": "CDr, Advance",
+			"label": "London Records, Sire Records Group",
+			"artist": "Aphex Twin",
+			"year": 0,
+			"id": 14007158
+		},
+		{
+			"status": "",
+			"title": "We Have Arrived (Remixes By Aphex Twin & The Mover)",
+			"format": "",
+			"label": "",
+			"artist": "Mescalinum United",
+			"year": 1992,
+			"id": 6696
+		},
+		{
+			"status": "",
+			"title": "Mindstream",
+			"format": "",
+			"label": "",
+			"artist": "Meat Beat Manifesto",
+			"year": 1992,
+			"id": 32321
+		},
+		{
+			"status": "",
+			"title": "Falling Free (Remix)",
+			"format": "",
+			"label": "",
+			"artist": "Curve",
+			"year": 1992,
+			"id": 25503
+		},
+		{
+			"status": "",
+			"title": "Zeroes & Ones",
+			"format": "",
+			"label": "",
+			"artist": "Jesus Jones",
+			"year": 1993,
+			"id": 48877
+		},
+		{
+			"status": "",
+			"title": "The Positiva Ambient Collection",
+			"format": "",
+			"label": "",
+			"artist": "Various",
+			"year": 1993,
+			"id": 364796
+		},
+		{
+			"status": "",
+			"title": "Who Do You Think You Are",
+			"format": "",
+			"label": "",
+			"artist": "Saint Etienne",
+			"year": 1993,
+			"id": 32753
+		},
+		{
+			"status": "Accepted",
+			"title": "シェイプレス",
+			"format": "CD",
+			"label": "Invitation, Invitation",
+			"artist": "Buck-Tick",
+			"year": 1994,
+			"id": 192310
+		},
+		{
+			"status": "Accepted",
+			"title": "Astralwerks Cassette Sampler Summer ‘94",
+			"format": "Cass, Smplr",
+			"label": "Astralwerks",
+			"artist": "Various",
+			"year": 1994,
+			"id": 2518168
+		},
+		{
+			"status": "",
+			"title": "XEO Chapter One Real Techno Intelligence",
+			"format": "",
+			"label": "",
+			"artist": "Various",
+			"year": 1994,
+			"id": 1683468
+		},
+		{
+			"status": "",
+			"title": "Plainsong / Time To Find Me",
+			"format": "",
+			"label": "",
+			"artist": "Seefeel",
+			"year": 1994,
+			"id": 21190
+		}]
+}

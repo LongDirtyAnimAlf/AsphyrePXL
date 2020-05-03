@@ -15,6 +15,8 @@ interface
 
 {$INCLUDE PXL.Config.inc}
 
+{$INCLUDE Android.Config.inc}
+
 {.$DEFINE ANDROID_DEBUG}
 
 uses
@@ -1097,7 +1099,6 @@ begin
   else
     LogText('PXL_AppGlue: Secondary (?) DefaultApplicationEntry');
 {$ENDIF}
-
   if not LoadEGLExtensions then
     LogText('Failed to load EGL extensions.', TLogType.Error);
 

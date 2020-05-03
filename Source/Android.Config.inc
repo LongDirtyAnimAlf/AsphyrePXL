@@ -1,6 +1,8 @@
 { Enables debug messages for most of AppGlue callbacks and commands. }
 {$DEFINE APPGLUE_DEBUG}
 
+{$DEFINE ANDROID_DEBUG}
+
 {$IFNDEF PXL_CONFIG}
   {$IFDEF FPC}
     {$MODE DELPHI}
