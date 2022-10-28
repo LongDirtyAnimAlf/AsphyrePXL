@@ -185,7 +185,7 @@
   {$define FPC_OR_DELPHIXE}
   {$define FPC_OR_DELPHIXE4}
   {$define FPC_ENUMHASINNER}
-  {$define USE_VTYPE_STATIC} // in our inlined VarClear()
+  {.$define USE_VTYPE_STATIC} // in our inlined VarClear()
 
   // $if FPC_FULLVERSION>20700 breaks Delphi 6-7 and SynProject :(
   {$ifdef VER2_7}

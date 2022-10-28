@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="12"/>
+    <PathDelim Value="\"/>
+    <General>
+      <Flags>
+        <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasTitleStatement Value="False"/>
+        <MainUnitHasScaledStatement Value="False"/>
+        <CompatibilityMode Value="True"/>
+      </Flags>
+      <SessionStorage Value="InProjectDir"/>
+      <Title Value="TestSQL3"/>
+      <UseAppBundle Value="False"/>
+      <ResourceType Value="res"/>
+    </General>
+    <i18n>
+      <EnableI18N LFM="False"/>
+    </i18n>
+    <BuildModes Count="4">
+      <Item1 Name="ARMV7RELEASE" Default="True"/>
+      <Item2 Name="ARMV7DEBUG">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="../libs/armeabi-v7a/$NameOnly($(ProjFile))"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir);..\..\..\..\..\Source;..\..\..\..\..\mORMot2;..\..\..\..\..\mORMot2\src"/>
+            <Libraries Value="..\..\..\..\..\mORMot2\static\$(TargetCPU)-$(TargetOS)"/>
+            <OtherUnitFiles Value="..\..\..\..\..\Source;..\..\..\..\..\mORMot2;..\..\..\..\..\mORMot2\src;..\..\..\..\..\mORMot2\src\core;..\..\..\..\..\mORMot2\src\lib;..\..\..\..\..\mORMot2\src\net;..\..\..\..\..\mORMot2\src\orm;..\..\..\..\..\mORMot2\src\db;..\..\..\..\..\mORMot2\src\rest;..\..\..\..\..\mORMot2\src\soa;..\..\..\..\..\mORMot2\src\app;..\..\..\..\..\mORMot2\src\tools;..\..\..\..\..\mORMot2\src\tools\ecc;..\..\..\..\..\mORMot2\test"/>
+            <UnitOutputDirectory Value="temp\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <SyntaxMode Value="Delphi"/>
+            </SyntaxOptions>
+          </Parsing>
+          <CodeGeneration>
+            <TargetCPU Value="arm"/>
+            <TargetOS Value="android"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf2"/>
+            </Debugging>
+            <Options>
+              <ExecutableType Value="Library"/>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-dPXL_ARMv7
+-a
+-al"/>
+          </Other>
+        </CompilerOptions>
+      </Item2>
+      <Item3 Name="ARM64RELEASE">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="../libs/arm64-v8a/$NameOnly($(ProjFile))"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir);..\..\..\..\..\Source;..\..\..\..\..\mORMot2;..\..\..\..\..\mORMot2\src"/>
+            <Libraries Value="..\..\..\..\..\mORMot2\static\$(TargetCPU)-$(TargetOS)"/>
+            <OtherUnitFiles Value="..\..\..\..\..\Source;..\..\..\..\..\mORMot2;..\..\..\..\..\mORMot2\src;..\..\..\..\..\mORMot2\src\core;..\..\..\..\..\mORMot2\src\lib;..\..\..\..\..\mORMot2\src\net;..\..\..\..\..\mORMot2\src\orm;..\..\..\..\..\mORMot2\src\db;..\..\..\..\..\mORMot2\src\rest;..\..\..\..\..\mORMot2\src\soa;..\..\..\..\..\mORMot2\src\app;..\..\..\..\..\mORMot2\src\tools;..\..\..\..\..\mORMot2\src\tools\ecc;..\..\..\..\..\mORMot2\test"/>
+            <UnitOutputDirectory Value="temp\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <SyntaxMode Value="Delphi"/>
+            </SyntaxOptions>
+          </Parsing>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <TargetCPU Value="aarch64"/>
+            <TargetOS Value="android"/>
+            <Optimizations>
+              <OptimizationLevel Value="2"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+            <Options>
+              <ExecutableType Value="Library"/>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-dPXL_ARMv8"/>
+          </Other>
+        </CompilerOptions>
+      </Item3>
+      <Item4 Name="LINUXARMV7DEBUG">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="../libs/armeabi-v7a/$NameOnly($(ProjFile))"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir);..\..\..\..\..\Source;..\..\..\..\..\mORMot2;..\..\..\..\..\mORMot2\src"/>
+            <Libraries Value="..\..\..\..\..\mORMot2\static\$(TargetCPU)-$(TargetOS)"/>
+            <OtherUnitFiles Value="..\..\..\..\..\Source;..\..\..\..\..\mORMot2;..\..\..\..\..\mORMot2\src;..\..\..\..\..\mORMot2\src\core;..\..\..\..\..\mORMot2\src\lib;..\..\..\..\..\mORMot2\src\net;..\..\..\..\..\mORMot2\src\orm;..\..\..\..\..\mORMot2\src\db;..\..\..\..\..\mORMot2\src\rest;..\..\..\..\..\mORMot2\src\soa;..\..\..\..\..\mORMot2\src\app;..\..\..\..\..\mORMot2\src\tools;..\..\..\..\..\mORMot2\src\tools\ecc;..\..\..\..\..\mORMot2\test"/>
+            <UnitOutputDirectory Value="temp\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <SyntaxMode Value="Delphi"/>
+            </SyntaxOptions>
+          </Parsing>
+          <CodeGeneration>
+            <TargetCPU Value="arm"/>
+            <TargetOS Value="linux"/>
+            <Optimizations>
+              <OptimizationLevel Value="2"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf2"/>
+            </Debugging>
+            <Options>
+              <ExecutableType Value="Library"/>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-dPXL_ARMv7
+-a
+-al"/>
+          </Other>
+        </CompilerOptions>
+      </Item4>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes Count="1">
+        <Mode0 Name="default"/>
+      </Modes>
+    </RunParams>
+    <Units Count="1">
+      <Unit0>
+        <Filename Value="TestSQL3.lpr"/>
+        <IsPartOfProject Value="True"/>
+      </Unit0>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="../libs/armeabi-v7a/$NameOnly($(ProjFile))"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir);..\..\..\..\..\Source;..\..\..\..\..\mORMot2;..\..\..\..\..\mORMot2\src"/>
+      <Libraries Value="..\..\..\..\..\mORMot2\static\$(TargetCPU)-$(TargetOS)"/>
+      <OtherUnitFiles Value="..\..\..\..\..\Source;..\..\..\..\..\mORMot2;..\..\..\..\..\mORMot2\src;..\..\..\..\..\mORMot2\src\core;..\..\..\..\..\mORMot2\src\lib;..\..\..\..\..\mORMot2\src\net;..\..\..\..\..\mORMot2\src\orm;..\..\..\..\..\mORMot2\src\db;..\..\..\..\..\mORMot2\src\rest;..\..\..\..\..\mORMot2\src\soa;..\..\..\..\..\mORMot2\src\app;..\..\..\..\..\mORMot2\src\tools;..\..\..\..\..\mORMot2\src\tools\ecc;..\..\..\..\..\mORMot2\src\crypt;..\..\..\..\..\mORMot2\test"/>
+      <UnitOutputDirectory Value="temp\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <SyntaxMode Value="Delphi"/>
+      </SyntaxOptions>
+    </Parsing>
+    <CodeGeneration>
+      <SmartLinkUnit Value="True"/>
+      <TargetCPU Value="arm"/>
+      <TargetOS Value="android"/>
+      <Optimizations>
+        <OptimizationLevel Value="2"/>
+      </Optimizations>
+    </CodeGeneration>
+    <Linking>
+      <Debugging>
+        <GenerateDebugInfo Value="False"/>
+        <UseLineInfoUnit Value="False"/>
+      </Debugging>
+      <LinkSmart Value="True"/>
+      <Options>
+        <ExecutableType Value="Library"/>
+      </Options>
+    </Linking>
+    <Other>
+      <CustomOptions Value="-dPXL_ARMv7"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
+</CONFIG>

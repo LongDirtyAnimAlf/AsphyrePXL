@@ -24,8 +24,10 @@ android {
         abi {
             enable true
             reset()
-            include 'armeabi-v7a', 'arm64-v8a'
-            universalApk true
+            include 'armeabi-v7a'
+            universalApk false
+            //include 'armeabi-v7a', 'arm64-v8a'
+            //universalApk true
         }
     }
     compileSdkVersion 28
@@ -49,7 +51,7 @@ android {
             jniLibs.srcDirs = ['libs']
         }
         debug.setRoot('build-types/debug')
-        release.setRoot('build-types/release')
+        //release.setRoot('build-types/release')
     }
 }
 dependencies {

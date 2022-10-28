@@ -1,0 +1,41 @@
+{
+	"Transactions": [
+		{
+			"TRTYPE": "INCOME",
+			"TRDATE": "2013-12-09T02:30:04",
+			"TRAA": "1.23",
+			"TRCAT1": {
+				"TITYPE": "C1",
+				"TIID": "1",
+				"TICID": "",
+				"TIDSC30": "description1",
+				"TIORDER": "0",
+				"TIDEL": "false"
+			},
+			"TRCAT2": {
+				"TITYPE": "C2",
+				"TIID": "2",
+				"TICID": "",
+				"TIDSC30": "description2",
+				"TIORDER": "0",
+				"TIDEL": "false"
+			},
+			"TRCAT3": {
+				"TITYPE": "C3",
+				"TIID": "3",
+				"TICID": "",
+				"TIDSC30": "description3",
+				"TIORDER": "0",
+				"TIDEL": "false"
+			},
+			"TRACID": {
+				"TITYPE": "AC",
+				"TIID": "4",
+				"TICID": "",
+				"TIDSC30": "account1",
+				"TIORDER": "0",
+				"TIDEL": "false"
+			},
+			"TRRMK": "Remark"
+		}]
+}

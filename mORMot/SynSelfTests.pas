@@ -2168,7 +2168,9 @@ var AI, AI2: TIntegerDynArray;
     Index: TIntegerDynArray;
     W: TTextWriter;
     JSON_BASE64_MAGIC_UTF8: RawUTF8;
-const MAGIC: array[0..1] of word = (34,$fff0);
+const
+  MAGIC: array[0..1] of word = (34,$fff0);
+  BUILDDATETIME: TDateTime = 36215.12;
 procedure Fill(var F: TFV; i: integer);
 begin
   F.Major := i;
@@ -2177,7 +2179,7 @@ begin
   F.Build := i+3;
   F.Main := IntToString(i+1000);
   F.Detailed := IntToString(2000-i);
-  F.BuildDateTime := 36215.12;
+  F.BuildDateTime := BUILDDATETIME;
   F.BuildYear := i+2011;
 end;
 procedure TestAF2;
@@ -2619,7 +2621,7 @@ begin
       Check(Build=i+3);
       Check(Main=IntToString(i+1000));
       Check(Detailed=IntToString(2000-i));
-      CheckSame(BuildDateTime,36215.12);
+      CheckSame(BuildDateTime,BUILDDATETIME);
       Check(BuildYear=i+2011);
     end;
   for i := 0 to 1000 do begin
@@ -10145,7 +10147,11 @@ begin
   for i := 0 to 2 do
     Check(V._(i)=Doc.Values[i]);
   Check(V._(3)=4);
+  {$ifdef FPC}
+  V.Add('a5');
+  {$else}
   V._ := 'a5';
+  {$endif}
   Check(V._count=5);
   for i := 0 to 2 do
     Check(V._(i)=Doc.Values[i]);

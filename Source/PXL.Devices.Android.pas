@@ -1111,8 +1111,9 @@ begin
   AndroidApp.onInputEvent := ApplicationHandleInput;
   AndroidApp.userData := Application;
 
+  {$ifdef Android}
   TAssetStream.AssetManager := AndroidApp.activity.assetManager;
-
+  {$endif Android}
   try
     if Assigned(HookApplicationCreate) then
       HookApplicationCreate;
@@ -1189,8 +1190,10 @@ begin
 
   FreeAndNil(Application);
 
+  {$ifdef Android}
   if TAssetStream.AssetManager = AndroidApp.activity.assetManager then
     TAssetStream.AssetManager := nil;
+  {$endif}
 
   UnloadGLES2Extensions;
   UnloadEGLExtensions;
